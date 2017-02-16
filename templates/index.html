@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Flask limiter issue 62</title>
+  </head>
+  <body>
+    <script>
+      function makeRequest() {
+        fetch("{{url_for('rate_limited_route')}}")
+          .then(function(response) {
+            document.write('<p>Making request to rate limited route</p>')
+
+            if (response.status === 429) {
+              document.write('<p>429 thrown. Retry-After: ' + response.headers.get('Retry-After') + '</p>')
+
+              var retryAfter = response.headers.get('Retry-After');
+              var countdown = setInterval(function() {
+                document.write('<p>Waiting another ' + --retryAfter + ' seconds</p>')
+              }, 1000)
+
+              setTimeout(function() {
+                clearInterval(countdown)
+                setTimeout(makeRequest, 100)
+              }, retryAfter * 1000)
+            } else {
+              setTimeout(makeRequest, 1000)
+            }
+          })
+
+      }
+
+      makeRequest()
+    </script>
+  </body>
+</html>
