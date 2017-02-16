@@ -11,7 +11,7 @@
             document.write('<p>Making request to rate limited route</p>')
 
             if (response.status === 429) {
-              document.write('<p>429 thrown. Retry-After: ' + response.headers.get('Retry-After') + '</p>')
+              document.write('<p style="color: red">429 thrown. Retry-After: ' + response.headers.get('Retry-After') + '</p>')
 
               var retryAfter = response.headers.get('Retry-After');
               var countdown = setInterval(function() {
