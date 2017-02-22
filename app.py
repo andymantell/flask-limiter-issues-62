@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -5,6 +6,7 @@ from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
 app.config['RATELIMIT_HEADERS_ENABLED'] = True
+app.config['RATELIMIT_STORAGE_URL'] = os.environ['REDIS_URL']
 
 
 limiter = Limiter(
