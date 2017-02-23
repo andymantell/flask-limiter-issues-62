@@ -8,6 +8,8 @@ app = Flask(__name__)
 app.config['RATELIMIT_HEADERS_ENABLED'] = True
 app.config['RATELIMIT_STORAGE_URL'] = os.environ['REDIS_URL']
 
+print(os.environ['REDIS_URL'])
+
 
 limiter = Limiter(
     app,
