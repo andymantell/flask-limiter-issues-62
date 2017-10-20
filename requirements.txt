@@ -1,4 +1,4 @@
 Flask==0.12
-Flask_limiter==0.9.3
+Flask_limiter==0.9.5.1
 gunicorn==19.6.0
 redis==2.10.5
